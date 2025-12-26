@@ -1,0 +1,7 @@
+{
+  "name": "Eden Constructors, Inc. - Commercial & Retail Construction",
+  "description": "A professional portfolio and service website for Eden Constructors, Inc., a commercial and retail construction company specializing in shopping centers, restaurants, and national retail rollouts.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
