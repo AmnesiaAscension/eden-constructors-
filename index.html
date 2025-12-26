@@ -4,19 +4,53 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eden Constructors, Inc. | Commercial & Retail Construction</title>
-  <meta name="description" content="Commercial & Retail Construction Delivered On Time. Shopping centers, national retail, fast food, and restaurants.">
+  <meta name="description" content="Commercial & Retail Construction Delivered On Time. Built with Safety.">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-    .font-bebas { font-family: 'Bebas Neue', sans-serif; }
-    .grid-pattern { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 20px 20px; }
-    html { scroll-behavior: smooth; }
-    .nav-active { color: #f97316 !important; }
-    #main-content { opacity: 0; transition: opacity 0.3s ease-in-out; }
-    #main-content.fade-in { opacity: 1; }
+    :root { --primary: #f97316; --secondary: #0f172a; }
+    body { font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    .font-bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; }
+    
+    /* Custom Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .animate-reveal { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    .animate-scale { animation: scaleIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+    
+    /* Scroll Reveal Logic */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    
+    .delay-100 { transition-delay: 100ms; }
+    .delay-200 { transition-delay: 200ms; }
+    .delay-300 { transition-delay: 300ms; }
+
+    /* Hover Effects */
+    .hover-card { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    .hover-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+    .img-zoom-container img { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    .img-zoom-container:hover img { transform: scale(1.1); }
+
+    /* Nav Active State */
+    .nav-active { color: var(--primary) !important; position: relative; }
+    .nav-active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px; background: var(--primary); }
+
+    /* Page Loading Fade */
+    #main-content { transition: opacity 0.4s ease; }
+    .page-exit { opacity: 0; }
+    
+    .grid-pattern { background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 30px 30px; }
   </style>
 <script type="importmap">
 {
@@ -28,323 +62,275 @@
 }
 </script>
 </head>
-<body class="bg-slate-50 text-slate-900 overflow-x-hidden">
+<body class="bg-slate-50 text-slate-900">
 
   <!-- Navigation -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-5">
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-6">
     <div class="max-w-[1120px] mx-auto px-4 md:px-6 flex justify-between items-center">
-      <a href="#/" class="flex items-center gap-2 group">
-        <div class="w-10 h-10 bg-orange-500 flex items-center justify-center font-bebas text-white text-2xl group-hover:bg-slate-800 transition-colors">E</div>
+      <a href="#/" class="flex items-center gap-3 group">
+        <div class="w-12 h-12 bg-orange-500 flex items-center justify-center font-bebas text-white text-3xl group-hover:rotate-[360deg] transition-transform duration-700">E</div>
         <div>
-          <span class="block font-bebas text-2xl leading-none text-slate-800">EDEN</span>
-          <span class="block text-[10px] tracking-[0.2em] font-bold text-slate-500 uppercase">Constructors</span>
+          <span class="block font-bebas text-3xl leading-none text-slate-800 tracking-tight">EDEN</span>
+          <span class="block text-[10px] tracking-[0.3em] font-extrabold text-slate-500 uppercase">Constructors</span>
         </div>
       </a>
 
-      <!-- Desktop Menu -->
-      <div id="desktop-menu" class="hidden lg:flex items-center gap-8">
-        <a href="#/" class="nav-link text-sm font-bold uppercase tracking-wider text-slate-700 hover:text-orange-500">Home</a>
-        <a href="#/about" class="nav-link text-sm font-bold uppercase tracking-wider text-slate-700 hover:text-orange-500">About</a>
-        <a href="#/services" class="nav-link text-sm font-bold uppercase tracking-wider text-slate-700 hover:text-orange-500">Services</a>
-        <a href="#/markets" class="nav-link text-sm font-bold uppercase tracking-wider text-slate-700 hover:text-orange-500">Markets</a>
-        <a href="#/projects" class="nav-link text-sm font-bold uppercase tracking-wider text-slate-700 hover:text-orange-500">Projects</a>
-        <a href="#/safety" class="nav-link text-sm font-bold uppercase tracking-wider text-slate-700 hover:text-orange-500">Safety</a>
-        <a href="#/contact" class="ml-4 px-6 py-2 bg-orange-500 text-white text-xs font-bold uppercase tracking-widest hover:bg-slate-800 transition-colors">Request Bid</a>
+      <!-- Desktop -->
+      <div class="hidden lg:flex items-center gap-10">
+        <a href="#/" class="nav-link text-xs font-bold uppercase tracking-widest text-slate-700 hover:text-orange-500 transition-colors">Home</a>
+        <a href="#/about" class="nav-link text-xs font-bold uppercase tracking-widest text-slate-700 hover:text-orange-500 transition-colors">About</a>
+        <a href="#/services" class="nav-link text-xs font-bold uppercase tracking-widest text-slate-700 hover:text-orange-500 transition-colors">Services</a>
+        <a href="#/projects" class="nav-link text-xs font-bold uppercase tracking-widest text-slate-700 hover:text-orange-500 transition-colors">Portfolio</a>
+        <a href="#/contact" class="px-8 py-3 bg-slate-900 text-white text-xs font-bold uppercase tracking-[0.2em] hover:bg-orange-500 hover:scale-105 transition-all shadow-lg">Request Bid</a>
       </div>
 
       <!-- Mobile Toggle -->
-      <button id="mobile-toggle" class="lg:hidden p-2 text-slate-800" aria-label="Toggle menu">
-        <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        </svg>
-        <svg id="close-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hidden">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
+      <button id="mobile-toggle" class="lg:hidden w-10 h-10 flex flex-col justify-center gap-1.5 items-end px-1">
+        <span class="w-8 h-0.5 bg-slate-800 transition-all duration-300"></span>
+        <span class="w-6 h-0.5 bg-slate-800 transition-all duration-300"></span>
+        <span class="w-4 h-0.5 bg-slate-800 transition-all duration-300"></span>
       </button>
     </div>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="lg:hidden fixed inset-0 top-[70px] bg-white z-40 translate-x-full transition-transform duration-300">
-      <div class="flex flex-col p-6 gap-6">
-        <a href="#/" class="nav-link-mobile text-2xl font-bebas tracking-wide text-slate-800">Home</a>
-        <a href="#/about" class="nav-link-mobile text-2xl font-bebas tracking-wide text-slate-800">About</a>
-        <a href="#/services" class="nav-link-mobile text-2xl font-bebas tracking-wide text-slate-800">Services</a>
-        <a href="#/markets" class="nav-link-mobile text-2xl font-bebas tracking-wide text-slate-800">Markets</a>
-        <a href="#/projects" class="nav-link-mobile text-2xl font-bebas tracking-wide text-slate-800">Projects</a>
-        <a href="#/safety" class="nav-link-mobile text-2xl font-bebas tracking-wide text-slate-800">Safety</a>
-        <a href="#/careers" class="nav-link-mobile text-2xl font-bebas tracking-wide text-slate-800">Careers</a>
-        <a href="#/contact" class="mt-4 w-full py-4 bg-orange-500 text-white text-center font-bold uppercase tracking-widest">Request a Bid</a>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden fixed inset-0 bg-white z-40 translate-x-full transition-transform duration-500 pt-24 px-8">
+      <div class="flex flex-col gap-8">
+        <a href="#/" class="text-4xl font-bebas text-slate-800 hover:text-orange-500 transition-colors">Home</a>
+        <a href="#/about" class="text-4xl font-bebas text-slate-800 hover:text-orange-500 transition-colors">About</a>
+        <a href="#/services" class="text-4xl font-bebas text-slate-800 hover:text-orange-500 transition-colors">Services</a>
+        <a href="#/projects" class="text-4xl font-bebas text-slate-800 hover:text-orange-500 transition-colors">Portfolio</a>
+        <a href="#/contact" class="text-4xl font-bebas text-slate-800 hover:text-orange-500 transition-colors">Contact</a>
       </div>
     </div>
   </nav>
 
-  <!-- Main Content Area -->
-  <main id="main-content" class="min-h-screen pt-20"></main>
+  <main id="main-content"></main>
 
   <!-- Footer -->
-  <footer class="bg-slate-900 text-white pt-20 pb-10">
-    <div class="max-w-[1120px] mx-auto px-4 md:px-6">
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+  <footer class="bg-slate-900 text-white pt-32 pb-12 overflow-hidden relative">
+    <div class="absolute top-0 right-0 w-64 h-64 bg-orange-500 opacity-5 blur-[120px]"></div>
+    <div class="max-w-[1120px] mx-auto px-4 md:px-6 relative z-10">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
         <div class="col-span-1 md:col-span-2 lg:col-span-1">
-          <div class="flex items-center gap-2 mb-6">
+          <div class="flex items-center gap-3 mb-8">
             <div class="w-10 h-10 bg-orange-500 flex items-center justify-center font-bebas text-white text-2xl">E</div>
-            <div>
-              <span class="block font-bebas text-2xl leading-none">EDEN</span>
-              <span class="block text-[10px] tracking-[0.2em] font-bold text-slate-400">CONSTRUCTORS</span>
-            </div>
+            <span class="font-bebas text-3xl">EDEN</span>
           </div>
-          <p class="text-slate-400 text-sm leading-relaxed mb-6">
-            Specializing in commercial and retail construction across the United States. We deliver quality, safety, and reliability on every site.
-          </p>
+          <p class="text-slate-400 leading-relaxed mb-8 font-medium">Delivering national-scale commercial projects with the agility of a specialized partner.</p>
         </div>
         <div>
-          <h4 class="text-orange-500 font-bebas text-xl mb-6 tracking-wide uppercase">Company</h4>
-          <ul class="space-y-4">
-            <li><a href="#/" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Home</a></li>
-            <li><a href="#/about" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">About</a></li>
-            <li><a href="#/services" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Services</a></li>
-            <li><a href="#/markets" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Markets</a></li>
+          <h4 class="text-orange-500 font-bebas text-xl mb-8 uppercase tracking-widest">Navigation</h4>
+          <ul class="space-y-4 text-sm font-bold uppercase tracking-widest">
+            <li><a href="#/about" class="text-slate-400 hover:text-white transition-colors">Company Info</a></li>
+            <li><a href="#/services" class="text-slate-400 hover:text-white transition-colors">Our Expertise</a></li>
+            <li><a href="#/projects" class="text-slate-400 hover:text-white transition-colors">Portfolio</a></li>
+            <li><a href="#/safety" class="text-slate-400 hover:text-white transition-colors">Safety Records</a></li>
           </ul>
         </div>
         <div>
-          <h4 class="text-orange-500 font-bebas text-xl mb-6 tracking-wide uppercase">Resources</h4>
-          <ul class="space-y-4">
-            <li><a href="#/projects" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Projects</a></li>
-            <li><a href="#/safety" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Safety</a></li>
-            <li><a href="#/careers" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Careers</a></li>
-            <li><a href="#/contact" class="text-slate-300 hover:text-white transition-colors text-sm font-medium">Contact</a></li>
+          <h4 class="text-orange-500 font-bebas text-xl mb-8 uppercase tracking-widest">Careers</h4>
+          <ul class="space-y-4 text-sm font-bold uppercase tracking-widest">
+            <li><a href="#/careers" class="text-slate-400 hover:text-white transition-colors">Join the Team</a></li>
+            <li><a href="#/contact" class="text-slate-400 hover:text-white transition-colors">Subcontractors</a></li>
           </ul>
         </div>
         <div>
-          <h4 class="text-orange-500 font-bebas text-xl mb-6 tracking-wide uppercase">Contact Us</h4>
-          <div class="space-y-4">
-            <div class="flex items-start gap-3 text-sm">
-              <span class="text-orange-500 mt-1">📞</span>
-              <div><span class="block text-slate-400">Call Us</span><a href="tel:800-555-0199" class="text-slate-100 font-bold hover:text-orange-500">800-555-0199</a></div>
-            </div>
-            <div class="flex items-start gap-3 text-sm">
-              <span class="text-orange-500 mt-1">✉️</span>
-              <div><span class="block text-slate-400">Email Us</span><a href="mailto:bids@edenconstructors.com" class="text-slate-100 font-bold hover:text-orange-500">bids@edenconstructors.com</a></div>
-            </div>
-          </div>
+          <h4 class="text-orange-500 font-bebas text-xl mb-8 uppercase tracking-widest">Contact</h4>
+          <p class="text-slate-400 text-sm font-bold mb-4">800-555-0199</p>
+          <p class="text-slate-400 text-sm font-bold">bids@edenconstructors.com</p>
         </div>
       </div>
-      <div class="pt-10 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-medium">
-        <p>© 2025 Eden Constructors, Inc. All Rights Reserved.</p>
-        <div class="flex gap-6">
-          <a href="#" class="hover:text-white">Privacy Policy</a>
-          <a href="#" class="hover:text-white">Terms of Service</a>
+      <div class="pt-12 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+        <p>© 2025 Eden Constructors, Inc.</p>
+        <div class="flex gap-10">
+          <a href="#" class="hover:text-white transition-colors">Privacy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms</a>
         </div>
       </div>
     </div>
   </footer>
 
   <script>
-    // --- DATA ---
+    // --- Data ---
     const projects = [
       {
         slug: 'modern-qsr-austin',
         name: 'Burger Haven Austin',
         type: 'QSR',
         location: 'Austin, TX',
-        year: 2024,
-        scope: 'Ground-up build with dual drive-thru lanes and high-efficiency kitchen.',
-        description: 'This project involved the complete ground-up construction of a 3,500 sq ft Quick Service Restaurant. Our team managed everything from site preparation and utility hookups to the final interior finishes and kitchen equipment installation.',
-        stats: { square_feet: '3,500', duration: '6 Months', delivery: 'General Contractor' },
-        images: ['https://picsum.photos/id/122/1200/800', 'https://picsum.photos/id/123/1200/800'],
-        tags: ['drive-thru', 'ground-up', 'kitchen']
+        stats: { sqft: '3,500', time: '6 Months' },
+        desc: 'Complete ground-up construction of a flagship QSR location featuring dual drive-thru tech and premium finishes.',
+        img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80'
       },
       {
-        slug: 'downtown-retail-plaza',
+        slug: 'mercantile-square',
         name: 'Mercantile Square',
         type: 'Retail',
         location: 'Denver, CO',
-        year: 2023,
-        scope: 'Multi-tenant shell construction and common area landscaping.',
-        description: 'A 25,000 sq ft retail shell designed for five anchor tenants. The project featured high-end facade materials, including architectural metal panels.',
-        stats: { square_feet: '25,000', duration: '10 Months', delivery: 'Design-Build' },
-        images: ['https://picsum.photos/id/125/1200/800', 'https://picsum.photos/id/126/1200/800'],
-        tags: ['multi-tenant', 'shell', 'retail']
+        stats: { sqft: '25,000', time: '10 Months' },
+        desc: 'Large-scale multi-tenant retail shell with architectural metal facades and integrated landscaping.',
+        img: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80'
       },
       {
-        slug: 'bistro-renovation-chicago',
+        slug: 'gilded-spoon',
         name: 'The Gilded Spoon',
         type: 'Restaurant',
         location: 'Chicago, IL',
-        year: 2024,
-        scope: 'High-end interior fit-out and historical facade preservation.',
-        description: 'Working within a landmarked building, Eden Constructors transformed a former bank lobby into a premium dining destination.',
-        stats: { square_feet: '5,200', duration: '5 Months', delivery: 'CM at Risk' },
-        images: ['https://picsum.photos/id/127/1200/800', 'https://picsum.photos/id/128/1200/800'],
-        tags: ['interiors', 'historical', 'dining']
-      },
-      {
-        slug: 'national-coffee-rollout',
-        name: 'BrewPoint Flagship',
-        type: 'Tenant Improvement',
-        location: 'Seattle, WA',
-        year: 2025,
-        scope: 'Concept-store rollout featuring automated service tech.',
-        description: 'This tenant improvement project served as the prototype for a national brand expansion.',
-        stats: { square_feet: '1,800', duration: '3 Months', delivery: 'GC' },
-        images: ['https://picsum.photos/id/129/1200/800', 'https://picsum.photos/id/130/1200/800'],
-        tags: ['prototype', 'tech-integrated', 'cafe']
-      },
-      {
-        slug: 'mall-anchor-transformation',
-        name: 'Pacific Center East',
-        type: 'Ground-up',
-        location: 'San Diego, CA',
-        year: 2024,
-        scope: 'Conversion of outdated department store into modern mixed-use retail.',
-        description: 'A massive 60,000 sq ft overhaul creating an open-air mall feel.',
-        stats: { square_feet: '60,000', duration: '14 Months', delivery: 'Design-Build' },
-        images: ['https://picsum.photos/id/131/1200/800', 'https://picsum.photos/id/132/1200/800'],
-        tags: ['mixed-use', 'redevelopment', 'large-scale']
-      },
-      {
-        slug: 'fashion-boutique-soho',
-        name: 'Lumiere Boutique',
-        type: 'Retail',
-        location: 'New York, NY',
-        year: 2023,
-        scope: 'Minimalist luxury retail interior.',
-        description: 'A high-stakes TI in the heart of SoHo featuring museum-quality lighting.',
-        stats: { square_feet: '2,400', duration: '4 Months', delivery: 'GC' },
-        images: ['https://picsum.photos/id/133/1200/800', 'https://picsum.photos/id/134/1200/800'],
-        tags: ['luxury', 'boutique', 'interiors']
+        stats: { sqft: '5,200', time: '5 Months' },
+        desc: 'Historical bank lobby transformed into a luxury dining destination with custom high-end millwork.',
+        img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80'
       }
     ];
 
-    // --- UTILS ---
+    // --- Core Logic ---
     const main = document.getElementById('main-content');
     const nav = document.getElementById('navbar');
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileToggle = document.getElementById('mobile-toggle');
-    const menuIcon = document.getElementById('menu-icon');
-    const closeIcon = document.getElementById('close-icon');
 
-    const updateNavStyles = () => {
-      if (window.scrollY > 20) {
-        nav.classList.add('bg-white', 'shadow-md', 'py-3');
-        nav.classList.remove('bg-transparent', 'py-5');
-      } else {
-        nav.classList.remove('bg-white', 'shadow-md', 'py-3');
-        nav.classList.add('bg-transparent', 'py-5');
-      }
+    // Scroll Observer
+    const createObserver = () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            if (entry.target.dataset.count) animateValue(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     };
 
-    window.addEventListener('scroll', updateNavStyles);
+    // Animated Counters
+    const animateValue = (obj) => {
+      const start = 0;
+      const end = parseInt(obj.dataset.count);
+      const duration = 2000;
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML = Math.floor(progress * (end - start) + start) + (obj.dataset.suffix || '');
+        if (progress < 1) window.requestAnimationFrame(step);
+      };
+      window.requestAnimationFrame(step);
+    };
 
-    mobileToggle.addEventListener('click', () => {
-      const isOpen = !mobileMenu.classList.contains('translate-x-full');
-      if (isOpen) {
-        mobileMenu.classList.add('translate-x-full');
-        menuIcon.classList.remove('hidden');
-        closeIcon.classList.add('hidden');
+    // Nav Background Transition
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('bg-white/90', 'backdrop-blur-xl', 'shadow-2xl', 'py-4');
+        nav.classList.remove('py-6');
       } else {
-        mobileMenu.classList.remove('translate-x-full');
-        menuIcon.classList.add('hidden');
-        closeIcon.classList.remove('hidden');
+        nav.classList.remove('bg-white/90', 'backdrop-blur-xl', 'shadow-2xl', 'py-4');
+        nav.classList.add('py-6');
       }
     });
 
-    // Close mobile menu on hash change
-    window.addEventListener('hashchange', () => {
-      mobileMenu.classList.add('translate-x-full');
-      menuIcon.classList.remove('hidden');
-      closeIcon.classList.add('hidden');
-      window.scrollTo(0, 0);
-      router();
+    mobileToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('translate-x-full');
+      mobileToggle.classList.toggle('active');
     });
 
-    // --- ROUTER ---
+    // --- Router ---
     const router = () => {
       const hash = window.location.hash || '#/';
-      main.classList.remove('fade-in');
+      main.classList.add('page-exit');
       
       setTimeout(() => {
         if (hash === '#/' || hash === '') renderHome();
         else if (hash === '#/about') renderAbout();
         else if (hash === '#/services') renderServices();
-        else if (hash === '#/markets') renderMarkets();
         else if (hash === '#/projects') renderProjects();
-        else if (hash === '#/safety') renderSafety();
-        else if (hash === '#/careers') renderCareers();
         else if (hash === '#/contact') renderContact();
-        else if (hash.startsWith('#/project/')) {
-          const slug = hash.split('#/project/')[1];
-          renderProjectDetail(slug);
-        } else render404();
+        else if (hash.startsWith('#/project/')) renderProjectDetail(hash.split('/project/')[1]);
+        
+        main.classList.remove('page-exit');
+        createObserver();
+        window.scrollTo(0, 0);
+      }, 300);
 
-        // Update active nav link
-        document.querySelectorAll('.nav-link, .nav-link-mobile').forEach(link => {
-          if (link.getAttribute('href') === hash) link.classList.add('nav-active');
-          else link.classList.remove('nav-active');
-        });
-
-        main.classList.add('fade-in');
-      }, 100);
+      // Active class
+      document.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.toggle('nav-active', l.getAttribute('href') === hash);
+      });
     };
 
-    // --- PAGE RENDERERS ---
+    // --- Templates ---
 
     const renderHome = () => {
-      const featured = projects.slice(0, 3);
       main.innerHTML = `
-        <section class="relative h-[90vh] min-h-[600px] flex items-center bg-slate-900 overflow-hidden">
-          <div class="absolute inset-0 opacity-40">
-            <img src="https://picsum.photos/id/119/1920/1080" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/40 to-transparent"></div>
+        <!-- Hero -->
+        <section class="relative h-screen flex items-center bg-slate-900 overflow-hidden">
+          <div class="absolute inset-0 scale-110">
+            <img src="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover opacity-40">
           </div>
-          <div class="relative z-10 max-w-[1120px] mx-auto px-4 md:px-6">
-            <div class="max-w-2xl">
-              <span class="inline-block py-1 px-4 bg-orange-500 text-white text-[10px] font-bold tracking-[0.3em] uppercase mb-6">Commercial & Retail Construction</span>
-              <h1 class="text-5xl md:text-7xl font-bebas text-white leading-[1.1] mb-8">Delivered <span class="text-orange-500">On Time.</span><br>Built with Safety.</h1>
-              <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed max-w-xl">Shopping centers, national rollouts, fast food, and signature restaurants—we build with precision.</p>
-              <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#/contact" class="px-8 py-4 bg-orange-500 text-white font-bold uppercase tracking-widest hover:bg-white hover:text-orange-500 transition-all text-center">Request a Bid</a>
-                <a href="#/projects" class="px-8 py-4 border-2 border-white/30 text-white font-bold uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all text-center">View Portfolio</a>
+          <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/40 to-transparent"></div>
+          
+          <div class="max-w-[1120px] mx-auto px-4 md:px-6 relative z-10">
+            <div class="max-w-3xl">
+              <span class="inline-block py-2 px-6 bg-orange-500 text-white text-[10px] font-extrabold tracking-[0.4em] uppercase mb-8 animate-scale">Commercial & Retail Construction</span>
+              <h1 class="text-6xl md:text-9xl font-bebas text-white leading-[0.9] mb-10 reveal">BUILDING THE <br><span class="text-orange-500">EXPERIENCE.</span></h1>
+              <p class="text-xl md:text-2xl text-slate-300 mb-12 font-medium max-w-xl reveal delay-100">National retail rollouts and signature restaurant builds delivered with aggressive timelines and zero compromise on safety.</p>
+              <div class="flex flex-wrap gap-6 reveal delay-200">
+                <a href="#/projects" class="px-12 py-5 bg-white text-slate-900 font-bold uppercase tracking-widest hover:bg-orange-500 hover:text-white transition-all shadow-xl scale-100 hover:scale-105">View Work</a>
+                <a href="#/contact" class="px-12 py-5 border-2 border-white text-white font-bold uppercase tracking-widest hover:bg-white hover:text-slate-900 transition-all">Request Bid</a>
               </div>
             </div>
           </div>
-        </section>
-
-        <section class="bg-white py-12 border-b border-slate-100">
-          <div class="max-w-[1120px] mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div class="text-center md:text-left"><div class="text-4xl md:text-5xl font-bebas text-slate-800">15+</div><div class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Years in Business</div></div>
-            <div class="text-center md:text-left"><div class="text-4xl md:text-5xl font-bebas text-slate-800">500+</div><div class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Projects Completed</div></div>
-            <div class="text-center md:text-left"><div class="text-4xl md:text-5xl font-bebas text-slate-800">45</div><div class="text-[10px] font-bold uppercase tracking-widest text-slate-500">States Active</div></div>
-            <div class="text-center md:text-left"><div class="text-4xl md:text-5xl font-bebas text-slate-800">0.72</div><div class="text-[10px] font-bold uppercase tracking-widest text-slate-500">EMR Safety Rating</div></div>
+          
+          <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-white/40">
+            <span class="text-[10px] font-bold uppercase tracking-[0.3em]">Scroll</span>
+            <div class="w-0.5 h-16 bg-gradient-to-b from-orange-500 to-transparent"></div>
           </div>
         </section>
 
-        <section class="py-24 bg-slate-50 grid-pattern">
+        <!-- Stats Section -->
+        <section class="py-32 bg-white relative overflow-hidden">
           <div class="max-w-[1120px] mx-auto px-4 md:px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-              <div class="max-w-xl">
-                <h2 class="text-4xl md:text-5xl font-bebas text-slate-800 mb-6 uppercase">Our Capabilities</h2>
-                <p class="text-slate-600 font-medium">We handle every aspect of the build, from preconstruction to final turnover.</p>
-              </div>
-              <a href="#/services" class="text-sm font-bold uppercase tracking-widest text-orange-500">All Services →</a>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center lg:text-left">
+              ${[
+                { n: '15', s: '+', l: 'Years Industry Mastery' },
+                { n: '500', s: '+', l: 'Premium Builds Completed' },
+                { n: '45', s: '', l: 'States Operations Ready' },
+                { n: '72', s: '', l: 'EMR Safety Rating' }
+              ].map((s, i) => `
+                <div class="reveal delay-${i * 100}">
+                  <div class="text-7xl font-bebas text-slate-800 mb-2" data-count="${s.n}" data-suffix="${s.s}">${s.n}${s.s}</div>
+                  <div class="text-[10px] font-extrabold uppercase tracking-[0.3em] text-orange-500">${s.l}</div>
+                </div>
+              `).join('')}
             </div>
+          </div>
+        </section>
+
+        <!-- Capabilities (The "Flashy" Grid) -->
+        <section class="py-32 bg-slate-50 grid-pattern">
+          <div class="max-w-[1120px] mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-10">
+              <div class="max-w-2xl reveal">
+                <h2 class="text-5xl md:text-7xl font-bebas text-slate-900 mb-6 uppercase leading-none">CORE <br><span class="text-orange-500">CAPABILITIES.</span></h2>
+                <p class="text-slate-600 font-bold text-lg">We own the schedule. We own the quality. We own the turnover.</p>
+              </div>
+              <a href="#/services" class="group flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-slate-900 reveal delay-200">
+                Explore All Services <span class="w-12 h-px bg-slate-300 group-hover:w-24 group-hover:bg-orange-500 transition-all"></span>
+              </a>
+            </div>
+
             <div class="grid md:grid-cols-3 gap-8">
               ${[
-                { t: 'Ground-Up Retail', i: '135' },
-                { t: 'Tenant Improvements', i: '136' },
-                { t: 'Restaurants & QSR', i: '137' },
-                { t: 'Multi-site Rollouts', i: '139' },
-                { t: 'Preconstruction', i: '140' },
-                { t: 'Project Management', i: '141' }
-              ].map(c => `
-                <div class="group relative bg-white overflow-hidden shadow-sm">
-                  <div class="aspect-[3/2] overflow-hidden">
-                    <img src="https://picsum.photos/id/${c.i}/600/400" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-slate-900/40 group-hover:bg-orange-500/80 transition duration-500"></div>
-                  </div>
-                  <div class="absolute bottom-0 left-0 p-6 text-white">
-                    <h3 class="text-2xl font-bebas tracking-wide mb-2">${c.t}</h3>
-                    <div class="w-8 h-1 bg-white group-hover:w-full transition-all duration-500"></div>
+                { t: 'Ground-Up Retail', d: 'Pad-ready to turnover for major anchors.', i: 'https://images.unsplash.com/photo-1503387762-592dea58ef23?auto=format&fit=crop&w=800&q=80' },
+                { t: 'Restaurant Fit-Out', d: 'High-spec kitchen and customer environments.', i: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=800&q=80' },
+                { t: 'Multi-Site Rollout', d: 'National brand consistency at scale.', i: 'https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?auto=format&fit=crop&w=800&q=80' }
+              ].map((c, i) => `
+                <div class="group relative aspect-[3/4] overflow-hidden reveal delay-${i * 100} shadow-2xl hover-card">
+                  <img src="${c.i}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-125">
+                  <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/20 to-transparent group-hover:opacity-80 transition-opacity"></div>
+                  <div class="absolute bottom-0 left-0 p-10 translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
+                    <h3 class="text-3xl font-bebas text-white mb-4 uppercase tracking-wider">${c.t}</h3>
+                    <p class="text-white/60 text-sm font-medium mb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700">${c.d}</p>
+                    <div class="w-12 h-1 bg-orange-500 group-hover:w-full transition-all duration-500"></div>
                   </div>
                 </div>
               `).join('')}
@@ -352,23 +338,89 @@
           </div>
         </section>
 
-        <section class="py-24 bg-white">
-          <div class="max-w-[1120px] mx-auto px-4 md:px-6 text-center">
-            <span class="text-orange-500 text-[10px] font-bold tracking-[0.4em] uppercase mb-4 block">Work Portfolio</span>
-            <h2 class="text-4xl md:text-5xl font-bebas text-slate-800 mb-16 uppercase">Featured Projects</h2>
-            <div class="grid md:grid-cols-3 gap-10">
-              ${featured.map(p => `
-                <a href="#/project/${p.slug}" class="group text-left block">
-                  <div class="aspect-[4/5] bg-slate-100 mb-6 overflow-hidden relative">
-                    <img src="${p.images[0]}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                    <div class="absolute top-4 left-4 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest">${p.type}</div>
+        <!-- CTA Band -->
+        <section class="py-40 bg-orange-500 text-white relative overflow-hidden">
+          <div class="absolute top-0 right-0 text-[300px] font-bebas leading-none opacity-5 translate-x-1/2 -translate-y-1/4 select-none">EDEN</div>
+          <div class="max-w-[1120px] mx-auto px-4 md:px-6 relative z-10 text-center">
+            <h2 class="text-6xl md:text-9xl font-bebas mb-12 reveal">HAVE PLANS READY?</h2>
+            <p class="text-xl font-bold uppercase tracking-widest mb-16 opacity-80 reveal delay-100">Our estimating team turns complex bids in record time.</p>
+            <a href="#/contact" class="inline-block px-16 py-6 bg-white text-slate-900 font-bold uppercase tracking-[0.3em] hover:bg-slate-900 hover:text-white transition-all shadow-2xl reveal delay-200">Invite Us to Bid</a>
+          </div>
+        </section>
+      `;
+    };
+
+    const renderProjects = () => {
+      main.innerHTML = `
+        <section class="bg-slate-900 pt-48 pb-32">
+          <div class="max-w-[1120px] mx-auto px-4 md:px-6">
+            <h1 class="text-7xl md:text-9xl font-bebas text-white mb-12 reveal">PORTFOLIO <br><span class="text-orange-500">OF PRECISION.</span></h1>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12 mt-24">
+              ${projects.map((p, i) => `
+                <a href="#/project/${p.slug}" class="group block reveal delay-${i * 100}">
+                  <div class="aspect-[4/5] overflow-hidden mb-8 relative shadow-2xl">
+                    <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s]">
+                    <div class="absolute top-6 left-6 py-1 px-4 bg-orange-500 text-white text-[10px] font-bold uppercase tracking-widest">${p.type}</div>
                   </div>
-                  <h3 class="text-2xl font-bebas text-slate-800 tracking-wide">${p.name}</h3>
-                  <p class="text-sm text-slate-500 font-bold uppercase tracking-widest">${p.location}</p>
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <h3 class="text-3xl font-bebas text-slate-800 mb-2 group-hover:text-orange-500 transition-colors uppercase">${p.name}</h3>
+                      <p class="text-xs font-bold uppercase tracking-widest text-slate-400">${p.location}</p>
+                    </div>
+                    <div class="w-12 h-12 border border-slate-200 rounded-full flex items-center justify-center group-hover:bg-orange-500 group-hover:border-orange-500 group-hover:text-white transition-all">
+                      →
+                    </div>
+                  </div>
                 </a>
               `).join('')}
             </div>
-            <a href="#/projects" class="inline-block mt-16 px-10 py-4 border-2 border-slate-800 text-slate-800 font-bold uppercase tracking-widest hover:bg-slate-800 hover:text-white transition-all">View All Projects</a>
+          </div>
+        </section>
+      `;
+    };
+
+    const renderProjectDetail = (slug) => {
+      const p = projects.find(item => item.slug === slug) || projects[0];
+      main.innerHTML = `
+        <section class="h-[70vh] relative flex items-end overflow-hidden">
+          <img src="${p.img}" class="absolute inset-0 w-full h-full object-cover animate-scale">
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/30 to-transparent"></div>
+          <div class="max-w-[1120px] mx-auto px-4 md:px-6 pb-24 w-full relative z-10 text-white">
+            <span class="text-orange-500 text-[10px] font-bold tracking-[0.4em] uppercase mb-6 block reveal">${p.type}</span>
+            <h1 class="text-6xl md:text-9xl font-bebas leading-none uppercase reveal delay-100">${p.name}</h1>
+          </div>
+        </section>
+
+        <section class="py-32 bg-white">
+          <div class="max-w-[1120px] mx-auto px-4 md:px-6 grid lg:grid-cols-3 gap-24">
+            <div class="lg:col-span-2 reveal">
+              <h2 class="text-4xl font-bebas text-slate-800 mb-10 uppercase tracking-widest underline decoration-orange-500 decoration-4 underline-offset-8">Project Scope</h2>
+              <p class="text-xl text-slate-600 font-medium leading-relaxed mb-12">${p.desc}</p>
+              <div class="grid sm:grid-cols-2 gap-6">
+                 ${['Structural Prep', 'MEP Integration', 'Premium Finishes', 'Aggressive Closeout'].map((t, i) => `
+                    <div class="p-6 bg-slate-50 border-l-4 border-orange-500 flex items-center gap-4 reveal delay-${i * 100}">
+                      <span class="text-orange-500">✓</span>
+                      <span class="text-xs font-bold uppercase tracking-widest text-slate-700">${t}</span>
+                    </div>
+                 `).join('')}
+              </div>
+            </div>
+            <div>
+              <div class="bg-slate-900 p-12 text-white shadow-3xl reveal delay-200 sticky top-32">
+                <h3 class="text-orange-500 font-bebas text-2xl mb-10 uppercase tracking-widest">Specifications</h3>
+                <div class="space-y-12">
+                  <div>
+                    <span class="block text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Total Footprint</span>
+                    <span class="text-3xl font-bebas">${p.stats.sqft} SQ FT</span>
+                  </div>
+                  <div class="pt-10 border-t border-white/10">
+                    <span class="block text-slate-500 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Build Cycle</span>
+                    <span class="text-3xl font-bebas">${p.stats.time}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       `;
@@ -376,28 +428,30 @@
 
     const renderAbout = () => {
       main.innerHTML = `
-        <section class="bg-slate-900 pt-32 pb-20 relative overflow-hidden">
-          <div class="max-w-[1120px] mx-auto px-4 md:px-6 relative z-10">
-            <span class="text-orange-500 text-[10px] font-bold tracking-[0.4em] uppercase mb-4 block">About Eden</span>
-            <h1 class="text-5xl md:text-7xl font-bebas text-white uppercase">Built on Trust.</h1>
+        <section class="bg-slate-900 pt-48 pb-32 relative overflow-hidden">
+          <div class="absolute inset-0 opacity-20">
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover">
           </div>
-          <div class="absolute inset-0 opacity-20 bg-[url('https://picsum.photos/id/112/1920/1080')] bg-cover bg-center grayscale"></div>
+          <div class="max-w-[1120px] mx-auto px-4 md:px-6 relative z-10 text-white">
+            <h1 class="text-7xl md:text-9xl font-bebas leading-none uppercase reveal">THE EDEN <br><span class="text-orange-500">LEGACY.</span></h1>
+          </div>
         </section>
-        <section class="py-24">
-          <div class="max-w-[1120px] mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <h2 class="text-4xl md:text-5xl font-bebas text-slate-800 mb-8 uppercase">Partners for Development.</h2>
-              <div class="space-y-6 text-slate-600 font-medium text-lg leading-relaxed">
-                <p>Eden Constructors, Inc. was founded with a single mission: to provide the highest level of professionalism and quality in the commercial and retail construction market.</p>
-                <p>We understand that for our retail and restaurant clients, time is more than just a schedule—it's revenue.</p>
-              </div>
+        
+        <section class="py-32">
+          <div class="max-w-[1120px] mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-24 items-center">
+            <div class="reveal">
+              <h2 class="text-4xl md:text-6xl font-bebas text-slate-800 mb-8 uppercase">Dependable Partners.</h2>
+              <p class="text-xl text-slate-500 font-medium leading-relaxed mb-8">We don't just build boxes; we build business infrastructure. We understand that every day a site isn't operational is lost revenue for our clients.</p>
+              <p class="text-lg text-slate-600 font-medium">Based in Denver with operations nationwide, we provide a full-service approach that covers every square foot of your project.</p>
             </div>
-            <div class="aspect-[4/5] bg-slate-200 overflow-hidden shadow-2xl relative">
-              <img src="https://picsum.photos/id/113/1000/1200" class="w-full h-full object-cover">
-              <div class="absolute -bottom-10 -left-10 w-64 p-8 bg-orange-500 text-white shadow-xl hidden md:block">
-                 <div class="text-5xl font-bebas mb-2">15+</div>
-                 <div class="text-[10px] font-bold uppercase tracking-widest opacity-80">Years of Building Excellence</div>
-              </div>
+            <div class="relative reveal delay-200">
+               <div class="aspect-[4/5] overflow-hidden shadow-3xl">
+                  <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=800&q=100" class="w-full h-full object-cover">
+               </div>
+               <div class="absolute -bottom-12 -right-12 p-12 bg-orange-500 text-white hidden md:block shadow-2xl">
+                  <span class="text-7xl font-bebas block mb-2">15+</span>
+                  <span class="text-xs font-bold uppercase tracking-widest opacity-80">Years Excellence</span>
+               </div>
             </div>
           </div>
         </section>
@@ -405,263 +459,63 @@
     };
 
     const renderServices = () => {
-      const svcs = [
-        { t: 'Preconstruction', d: 'Accurate budgets and constructability reviews.', i: '🏗️' },
-        { t: 'Ground-Up', d: 'From site-work to structural steel.', i: '🧱' },
-        { t: 'Tenant Improvements', d: 'High-end retail and commercial fit-outs.', i: '🛠️' },
-        { t: 'Restaurant & QSR', d: 'Complex kitchens and high-capacity systems.', i: '🍔' }
-      ];
-      main.innerHTML = `
-        <section class="bg-slate-900 pt-32 pb-20 relative overflow-hidden">
-          <div class="max-w-[1120px] mx-auto px-4 md:px-6 relative z-10">
-            <span class="text-orange-500 text-[10px] font-bold tracking-[0.4em] uppercase mb-4 block">Our Expertise</span>
-            <h1 class="text-5xl md:text-7xl font-bebas text-white uppercase">Precision Services.</h1>
-          </div>
-          <div class="absolute inset-0 opacity-10 pointer-events-none grid-pattern"></div>
-        </section>
-        <section class="py-24 max-w-[1120px] mx-auto px-4 md:px-6">
-          <div class="grid md:grid-cols-2 gap-16">
-            ${svcs.map(s => `
-              <div class="group">
-                <div class="flex items-center gap-6 mb-6">
-                  <div class="text-4xl bg-slate-50 w-16 h-16 flex items-center justify-center border border-slate-100 group-hover:bg-orange-500 transition-all transform group-hover:-rotate-12">${s.i}</div>
-                  <h3 class="text-3xl font-bebas text-slate-800 uppercase tracking-wide group-hover:text-orange-500">${s.t}</h3>
-                </div>
-                <p class="text-slate-600 font-medium leading-relaxed pl-6 border-l-2 border-slate-100 group-hover:border-orange-500">${s.d}</p>
-              </div>
-            `).join('')}
-          </div>
-        </section>
-      `;
-    };
-
-    const renderMarkets = () => {
-      const mkts = [
-        { t: 'Shopping Centers', d: 'Exterior renovations and lifestyle center upgrades.', i: '142' },
-        { t: 'National Retail', d: 'Prototype execution on a national scale.', i: '143' },
-        { t: 'Fast Food / QSR', d: 'Fast-paced builds for high-traffic brands.', i: '144' }
-      ];
-      main.innerHTML = `
-        <section class="bg-slate-900 pt-32 pb-20 relative overflow-hidden">
-          <div class="max-w-[1120px] mx-auto px-4 md:px-6 relative z-10">
-            <span class="text-orange-500 text-[10px] font-bold tracking-[0.4em] uppercase mb-4 block">Industry Focus</span>
-            <h1 class="text-5xl md:text-7xl font-bebas text-white uppercase">Markets We Serve.</h1>
-          </div>
-          <div class="absolute inset-0 opacity-20 bg-[url('https://picsum.photos/id/117/1920/1080')] bg-cover bg-center grayscale"></div>
-        </section>
-        <section class="py-24 max-w-[1120px] mx-auto px-4 md:px-6 grid md:grid-cols-3 gap-8">
-          ${mkts.map(m => `
-            <div class="group bg-white border border-slate-100 overflow-hidden shadow-sm">
-              <div class="aspect-square overflow-hidden"><img src="https://picsum.photos/id/${m.i}/600/600" class="w-full h-full object-cover group-hover:scale-105 transition"></div>
-              <div class="p-8">
-                <h3 class="text-3xl font-bebas text-slate-800 uppercase mb-4">${m.t}</h3>
-                <p class="text-slate-500 text-sm font-medium mb-6">${m.d}</p>
-                <a href="#/projects" class="text-[10px] font-bold uppercase tracking-widest text-orange-500 border-b-2 border-orange-500">See Portfolio</a>
-              </div>
+       const svcs = [
+         { t: 'Preconstruction', i: '🏗️', d: 'Accurate budgeting and scheduling blueprints.' },
+         { t: 'Ground-Up Retail', i: '🧱', d: 'New construction for major commercial anchors.' },
+         { t: 'Restaurant Fit-Out', i: '🍔', d: 'Specialized health-code kitchen environments.' },
+         { t: 'National Rollouts', i: '🚀', d: 'High-speed consistency across multi-state portfolios.' }
+       ];
+       main.innerHTML = `
+        <section class="bg-slate-900 pt-48 pb-32"><div class="max-w-[1120px] mx-auto px-4 md:px-6 text-white text-center"><h1 class="text-7xl md:text-9xl font-bebas uppercase reveal">ELITE <span class="text-orange-500">SERVICES.</span></h1></div></section>
+        <section class="py-32 max-w-[1120px] mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-16">
+          ${svcs.map((s, i) => `
+            <div class="group p-12 bg-white border border-slate-100 shadow-sm hover:shadow-2xl transition-all hover-card reveal delay-${i * 100}">
+              <div class="text-6xl mb-8 group-hover:scale-125 transition-transform duration-500">${s.i}</div>
+              <h3 class="text-4xl font-bebas text-slate-800 mb-6 uppercase tracking-wider group-hover:text-orange-500">${s.t}</h3>
+              <p class="text-slate-500 font-medium leading-relaxed">${s.d}</p>
             </div>
           `).join('')}
         </section>
-      `;
-    };
-
-    const renderProjects = () => {
-      let activeFilter = 'All';
-      let searchQuery = '';
-      
-      const renderGrid = () => {
-        const filtered = projects.filter(p => {
-          const matchesFilter = activeFilter === 'All' || p.type === activeFilter;
-          const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                               p.location.toLowerCase().includes(searchQuery.toLowerCase());
-          return matchesFilter && matchesSearch;
-        });
-
-        const grid = document.getElementById('project-grid');
-        if (!grid) return;
-        
-        if (filtered.length > 0) {
-          grid.innerHTML = filtered.map(p => `
-            <a href="#/project/${p.slug}" class="group block">
-              <div class="aspect-[4/5] bg-slate-100 mb-6 overflow-hidden relative shadow-sm">
-                <img src="${p.images[0]}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                <div class="absolute top-4 left-4 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest">${p.type}</div>
-              </div>
-              <h3 class="text-2xl font-bebas text-slate-800 mb-1 group-hover:text-orange-500 transition-colors uppercase">${p.name}</h3>
-              <p class="text-sm text-slate-500 font-bold uppercase tracking-widest">${p.location}</p>
-            </a>
-          `).join('');
-        } else {
-          grid.innerHTML = `<div class="col-span-full py-20 text-center text-slate-400 font-bold uppercase">No projects found.</div>`;
-        }
-      };
-
-      main.innerHTML = `
-        <section class="bg-slate-900 pt-32 pb-20 relative">
-          <div class="max-w-[1120px] mx-auto px-4 md:px-6 text-white"><h1 class="text-5xl md:text-7xl font-bebas uppercase">Our Portfolio.</h1></div>
-        </section>
-        <section class="sticky top-[70px] z-40 bg-white border-b border-slate-200 py-6">
-          <div class="max-w-[1120px] mx-auto px-4 md:px-6 flex flex-col lg:flex-row justify-between items-center gap-6">
-            <div id="filter-container" class="flex flex-wrap gap-2">
-              ${['All', 'Retail', 'Restaurant', 'QSR', 'Tenant Improvement', 'Ground-up'].map(f => `
-                <button class="filter-btn px-5 py-2 text-[10px] font-bold uppercase tracking-widest border transition-all ${f === 'All' ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-500 border-slate-200'}" data-filter="${f}">${f}</button>
-              `).join('')}
-            </div>
-            <input id="project-search" type="text" placeholder="Search projects..." class="w-full lg:w-80 px-4 py-2 border border-slate-200 focus:border-orange-500 outline-none text-sm">
-          </div>
-        </section>
-        <section class="py-20 max-w-[1120px] mx-auto px-4 md:px-6"><div id="project-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-10"></div></section>
-      `;
-
-      renderGrid();
-
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          activeFilter = e.target.dataset.filter;
-          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('bg-slate-800', 'text-white', 'border-slate-800'));
-          e.target.classList.add('bg-slate-800', 'text-white', 'border-slate-800');
-          renderGrid();
-        });
-      });
-
-      document.getElementById('project-search').addEventListener('input', (e) => {
-        searchQuery = e.target.value;
-        renderGrid();
-      });
-    };
-
-    const renderProjectDetail = (slug) => {
-      const p = projects.find(item => item.slug === slug);
-      if (!p) { render404(); return; }
-      main.innerHTML = `
-        <section class="h-[70vh] relative flex items-end">
-          <div class="absolute inset-0">
-            <img src="${p.images[0]}" class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
-          </div>
-          <div class="relative z-10 max-w-[1120px] mx-auto px-4 md:px-6 pb-20 w-full text-white">
-            <span class="inline-block px-4 py-1 bg-orange-500 text-[10px] font-bold tracking-[0.3em] uppercase mb-6">${p.type}</span>
-            <h1 class="text-5xl md:text-7xl font-bebas mb-4 uppercase">${p.name}</h1>
-            <p class="text-xl font-bold uppercase tracking-widest">${p.location}</p>
-          </div>
-        </section>
-        <section class="py-20 max-w-[1120px] mx-auto px-4 md:px-6 grid lg:grid-cols-3 gap-16">
-          <div class="lg:col-span-2">
-            <h2 class="text-3xl font-bebas text-slate-800 mb-8 border-b border-slate-100 pb-4 uppercase tracking-wide">Overview</h2>
-            <p class="text-slate-600 text-lg leading-relaxed mb-8 font-medium">${p.description}</p>
-            <h3 class="text-2xl font-bebas text-slate-800 mb-6 uppercase">Scope</h3>
-            <p class="text-slate-600 leading-relaxed mb-10 font-medium">${p.scope}</p>
-            <div class="grid sm:grid-cols-2 gap-4">
-              ${p.tags.map(tag => `<div class="flex items-center gap-3 bg-slate-50 p-4 border-l-4 border-orange-500"><span class="font-bold text-xs uppercase tracking-widest text-slate-700">✓ ${tag}</span></div>`).join('')}
-            </div>
-          </div>
-          <div>
-            <div class="bg-slate-900 p-8 text-white shadow-xl">
-              <h4 class="text-orange-500 font-bebas text-2xl mb-8 uppercase tracking-wide">Project Specs</h4>
-              <div class="space-y-6">
-                <div><span class="block text-slate-400 text-[10px] font-bold uppercase mb-2">Size</span><span class="text-2xl font-bebas">${p.stats.square_feet} SQ FT</span></div>
-                <div class="pt-6 border-t border-white/10"><span class="block text-slate-400 text-[10px] font-bold uppercase mb-2">Duration</span><span class="text-2xl font-bebas">${p.stats.duration}</span></div>
-              </div>
-              <a href="#/contact" class="block w-full mt-10 py-4 bg-orange-500 text-white text-center font-bold uppercase tracking-widest hover:bg-white hover:text-orange-500 transition-all">Invite us to Bid</a>
-            </div>
-          </div>
-        </section>
-        <section class="py-20 bg-slate-50">
-          <div class="max-w-[1120px] mx-auto px-4 md:px-6">
-            <h2 class="text-4xl font-bebas text-slate-800 mb-12 text-center uppercase">Gallery</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-              ${p.images.map(img => `<div class="aspect-video shadow-sm overflow-hidden"><img src="${img}" class="w-full h-full object-cover"></div>`).join('')}
-            </div>
-          </div>
-        </section>
-      `;
-    };
-
-    const renderSafety = () => {
-      main.innerHTML = `
-        <section class="bg-slate-900 pt-32 pb-20 relative">
-          <div class="max-w-[1120px] mx-auto px-4 md:px-6 text-white">
-            <span class="text-orange-500 text-[10px] font-bold tracking-[0.4em] uppercase mb-4 block">Safety First</span>
-            <h1 class="text-5xl md:text-7xl font-bebas uppercase">Zero Incidents.</h1>
-          </div>
-        </section>
-        <section class="py-24 max-w-[1120px] mx-auto px-4 md:px-6">
-          <div class="grid lg:grid-cols-2 gap-20 items-center">
-            <div><h2 class="text-4xl md:text-5xl font-bebas text-slate-800 mb-8 uppercase">A Culture of Care.</h2><p class="text-slate-600 font-medium text-lg leading-relaxed">Safety is the core of everything we do. We maintain pristine jobsites to protect everyone.</p></div>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="bg-slate-900 p-8 text-center text-white border-b-4 border-orange-500"><div class="text-4xl font-bebas text-orange-500">0.72</div><div class="text-[10px] font-bold uppercase">EMR Rating</div></div>
-              <div class="bg-slate-900 p-8 text-center text-white border-b-4 border-orange-500"><div class="text-4xl font-bebas text-orange-500">100%</div><div class="text-[10px] font-bold uppercase">OSHA 30</div></div>
-            </div>
-          </div>
-        </section>
-      `;
-    };
-
-    const renderCareers = () => {
-      main.innerHTML = `
-        <section class="bg-slate-900 pt-32 pb-20 relative"><div class="max-w-[1120px] mx-auto px-4 md:px-6 text-white text-center"><h1 class="text-5xl md:text-7xl font-bebas uppercase">Join Our Team.</h1></div></section>
-        <section class="py-24 max-w-[800px] mx-auto px-4 md:px-6">
-          <div class="space-y-6">
-            ${['Project Manager', 'Superintendent', 'Estimator'].map(job => `
-              <div class="p-8 border border-slate-200 bg-white shadow-sm flex flex-col md:flex-row justify-between items-center gap-6">
-                <div><h3 class="text-2xl font-bebas text-slate-800 uppercase">${job}</h3><p class="text-sm text-slate-500 font-bold uppercase">Denver, CO | Full-Time</p></div>
-                <a href="mailto:careers@edenconstructors.com" class="px-8 py-3 bg-slate-900 text-white font-bold uppercase text-xs tracking-widest">Apply Now</a>
-              </div>
-            `).join('')}
-          </div>
-        </section>
-      `;
+       `;
     };
 
     const renderContact = () => {
       main.innerHTML = `
-        <section class="bg-slate-900 pt-32 pb-20 text-white text-center"><h1 class="text-5xl md:text-7xl font-bebas uppercase">Start Your Project.</h1></section>
-        <section class="py-24 max-w-[1120px] mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-20">
-          <div>
-            <h2 class="text-4xl font-bebas text-slate-800 mb-8 uppercase">Contact Info</h2>
-            <div class="space-y-10">
-              <div><span class="block text-[10px] font-bold uppercase text-slate-400 mb-2 tracking-widest">Phone</span><a href="tel:800-555-0199" class="text-2xl font-bebas text-slate-800 hover:text-orange-500">800-555-0199</a></div>
-              <div><span class="block text-[10px] font-bold uppercase text-slate-400 mb-2 tracking-widest">Email</span><a href="mailto:bids@edenconstructors.com" class="text-2xl font-bebas text-slate-800 hover:text-orange-500">bids@edenconstructors.com</a></div>
+        <section class="bg-slate-900 pt-48 pb-32"><div class="max-w-[1120px] mx-auto px-4 md:px-6 text-white text-center"><h1 class="text-7xl md:text-9xl font-bebas uppercase reveal">START THE <span class="text-orange-500">BUILD.</span></h1></div></section>
+        <section class="py-32 max-w-[1120px] mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-24">
+          <div class="reveal">
+            <h2 class="text-5xl font-bebas text-slate-800 mb-12 uppercase underline decoration-orange-500 decoration-4 underline-offset-8">Get In Touch</h2>
+            <div class="space-y-12">
+              <div class="flex items-start gap-8">
+                <div class="w-16 h-16 bg-slate-50 flex items-center justify-center text-orange-500 border border-slate-100 shadow-sm">📞</div>
+                <div><span class="block text-[10px] font-bold uppercase text-slate-400 mb-2 tracking-widest">Headquarters</span><a href="tel:800-555-0199" class="text-3xl font-bebas text-slate-800 hover:text-orange-500 transition-colors">800-555-0199</a></div>
+              </div>
+              <div class="flex items-start gap-8">
+                <div class="w-16 h-16 bg-slate-50 flex items-center justify-center text-orange-500 border border-slate-100 shadow-sm">✉️</div>
+                <div><span class="block text-[10px] font-bold uppercase text-slate-400 mb-2 tracking-widest">Bid Invitations</span><a href="mailto:bids@edenconstructors.com" class="text-3xl font-bebas text-slate-800 hover:text-orange-500 transition-colors">bids@edenconstructors.com</a></div>
+              </div>
             </div>
           </div>
-          <div id="bid" class="bg-white border border-slate-200 p-10 shadow-sm">
-            <h2 class="text-4xl font-bebas text-slate-800 mb-8 uppercase">Request a Bid</h2>
-            <form id="bid-form" class="space-y-6">
-              <input required type="text" placeholder="Name" class="w-full px-4 py-3 border border-slate-200 focus:border-orange-500 outline-none">
-              <input required type="email" placeholder="Email" class="w-full px-4 py-3 border border-slate-200 focus:border-orange-500 outline-none">
-              <select class="w-full px-4 py-3 border border-slate-200 focus:border-orange-500 outline-none bg-white">
-                <option>Retail</option><option>Restaurant</option><option>QSR</option><option>Other</option>
-              </select>
-              <textarea required placeholder="Project Details" rows="4" class="w-full px-4 py-3 border border-slate-200 focus:border-orange-500 outline-none"></textarea>
-              <button type="submit" class="w-full py-4 bg-orange-500 text-white font-bold uppercase tracking-widest hover:bg-slate-800 transition-all">Submit Invitation</button>
+          <div class="bg-white p-12 shadow-3xl border border-slate-100 reveal delay-200">
+            <form id="bid-form" class="space-y-8">
+              <div><label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Your Name</label><input required type="text" class="w-full bg-slate-50 border-0 p-4 focus:ring-2 focus:ring-orange-500 outline-none transition-all"></div>
+              <div><label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Project Details</label><textarea required rows="4" class="w-full bg-slate-50 border-0 p-4 focus:ring-2 focus:ring-orange-500 outline-none transition-all"></textarea></div>
+              <button type="submit" class="w-full py-6 bg-slate-900 text-white font-bold uppercase tracking-[0.3em] hover:bg-orange-500 transition-all shadow-xl">Submit Invitation</button>
             </form>
           </div>
         </section>
       `;
       
       const form = document.getElementById('bid-form');
-      if (form) {
-        form.addEventListener('submit', (e) => {
-          e.preventDefault();
-          form.innerHTML = `<div class="py-10 text-center"><div class="text-4xl font-bebas text-green-500 mb-4 uppercase">Success</div><p class="font-medium text-slate-600">Thank you for inviting Eden to bid. We will be in touch shortly.</p></div>`;
-        });
-      }
+      if (form) form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        form.innerHTML = `<div class="py-24 text-center animate-scale"><div class="text-6xl font-bebas text-green-500 mb-6 uppercase">Success</div><p class="text-slate-500 font-bold uppercase tracking-widest">Invitation Received. Estimators will reply within 24hrs.</p></div>`;
+      });
     };
 
-    const render404 = () => {
-      main.innerHTML = `
-        <div class="flex flex-col items-center justify-center py-40 bg-white">
-          <h1 class="text-9xl font-bebas text-slate-200">404</h1>
-          <p class="text-2xl font-bold mt-4">Page Not Found</p>
-          <a href="#/" class="mt-8 px-8 py-3 bg-orange-500 text-white font-bold rounded hover:bg-orange-600 transition">Back to Home</a>
-        </div>
-      `;
-    };
-
-    // --- INITIALIZATION ---
-    document.addEventListener('DOMContentLoaded', () => {
-      router();
-      updateNavStyles();
-    });
+    // Initialize
+    window.addEventListener('hashchange', router);
+    window.addEventListener('DOMContentLoaded', router);
   </script>
 </body>
 </html>
